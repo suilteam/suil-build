@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM bmv437/flynn-cli:alpine
 MAINTAINER "Carter Mbotho"
 
 RUN apk update
