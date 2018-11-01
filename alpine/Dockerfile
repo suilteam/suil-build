@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM n0madic/alpine-gcc:7.3.0
 MAINTAINER "Carter Mbotho"
 
 RUN apk update
