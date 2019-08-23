@@ -1,0 +1,40 @@
+version: '3.3'
+
+services:
+    redis:
+        image: 'redis:alpine'
+        container_name: 'redis-db'
+        restart: always
+        ports:
+            - '6379:6379'
+        volumes:
+            - /Users/carter/projects/runtime/redis:/var/lib/redis
+        networks:
+            - build-net
+
+    postgres:
+        image: 'postgres:latest'
+        container_name: 'postgres-db'
+        ports:
+            - "54320:5432"
+        volumes:
+            - /Users/carter/projects/runtime/postgres:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_USER=build
+            - POSTGRES_PASSWORD=passwd
+        networks:
+            - build-net
+
+    remote-dbg:
+        image: 'suilteam/mecury-remote:ubuntu'
+        container_name: 'remote-dbg'
+        ports:
+            - '2022:22'
+        networks:
+            - build-net
+        volumes:
+            - /Users/carter/projects/runtime/build:/tmp/build
+
+networks:
+    build-net:
+        driver: bridge
