@@ -14,5 +14,4 @@ RUN export CXXFLAGS=-fPIC && mkdir -p /tmp/protoc && cd /tmp/protoc && \
     wget https://github.com/protocolbuffers/protobuf/releases/download/v3.7.0/protobuf-all-3.7.0.zip && \
     unzip protobuf-all-3.7.0.zip && cd protobuf-3.7.0 && \
     ./autogen.sh && ./configure --enable-shared=no --enable-static=yes --prefix=/usr/local/ && \
-    make -j5 && make install && cd && rm -rf /tmp/protoc && rm -rf /usr/local/lib/libprotobuf.* && \
-    rm -rf /usr/local/libprotoc.*
+    make -j5 && make install && cd && rm -rf /tmp/protoc && rm -rf /usr/local/libprotoc.*
