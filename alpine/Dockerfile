@@ -15,7 +15,7 @@ RUN L=/usr/local/bin/flynn && curl -sSL -A "`uname -sp`" https://dl.flynn.io/cli
 # Build secp256k1 and install in image
 RUN git clone https://github.com/bitcoin-core/secp256k1.git /tmp/secp256k1 && \
     cd /tmp/secp256k1 && ./autogen.sh && ./configure CPPFLAGS='-fPIC' CFLAGS='-fPIC' --enable-shared=no --enable-static=yes && \
-    make -j3 && make install && rm -rf /tmp/secp256k1
+    make -j3 && make install && cd && rm -rf /tmp/secp256k1
 
 # Build protobuf and install
 RUN export CXXFLAGS=-fPIC && mkdir -p /tmp/protoc && cd /tmp/protoc && \

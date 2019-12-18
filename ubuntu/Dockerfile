@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cmake sqlite3 libsqlite3-d
 # Build secp256k1 and install in image
 RUN git clone https://github.com/bitcoin-core/secp256k1.git /tmp/secp256k1 && \
      cd /tmp/secp256k1 && ./autogen.sh && ./configure CPPFLAGS='-fPIC' CFLAGS='-fPIC' --enable-shared=no --enable-static=yes && \
-     make -j3 && make install && rm -rf /tmp/secp256k1
+     make -j3 && make install && cd && rm -rf /tmp/secp256k1
 
 # Build protobuf library and install
 RUN export CXXFLAGS=-fPIC && mkdir -p /tmp/protoc && cd /tmp/protoc && \
