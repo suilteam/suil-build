@@ -4,7 +4,7 @@ RUN apt-get clean && apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --fix-missing cmake sqlite3 libsqlite3-dev \
                        libpq-dev postgresql postgresql-server-dev-all   \
                        uuid-dev openssl1.0 libssl1.0-dev build-essential \
-                       autoconf automake libtool curl make unzip wget \
+                       autoconf automake libtool curl make unzip wget git \
                        openssh-server nano rsync gdb lua5.3 bsdmainutils
 
 # Build secp256k1 and install in image

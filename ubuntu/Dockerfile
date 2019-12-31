@@ -5,7 +5,7 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cmake sqlite3 libsqlite3-dev \
                        libpq-dev postgresql postgresql-server-dev-all   \
                        uuid-dev openssl1.0 libssl1.0-dev build-essential \
-                       autoconf automake libtool curl make unzip wget libzmq3-dev
+                       autoconf automake libtool curl make unzip wget libzmq3-dev git
 
 # Build secp256k1 and install in image
 RUN git clone https://github.com/bitcoin-core/secp256k1.git /tmp/secp256k1 && \
