@@ -1,13 +1,17 @@
-FROM n0madic/alpine-gcc:7.3.0
+FROM n0madic/alpine-gcc:7.4.0
 MAINTAINER "Carter Mbotho"
+
+# Use alpine edge
+RUN sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories
+
+RUN apk upgrade --available
 
 # Install required packages
 RUN apk add --no-cache \
             curl git openssh bash sqlite sqlite-dev \
             openssl libressl-dev postgresql-dev \
             bsd-compat-headers util-linux-dev zeromq-dev \
-            libressl2.7-libcrypto docker \
-            autoconf automake libtool curl make unzip wget
+            docker autoconf automake libtool curl make unzip wget
 
 # Install flynn binary    
 RUN L=/usr/local/bin/flynn && curl -sSL -A "`uname -sp`" https://dl.flynn.io/cli | zcat >$L && chmod +x $L
