@@ -1,4 +1,4 @@
-FROM suilteam/mercury:ubuntu
+FROM suilteam/mecury:ubuntu
 
 # Setup ssh for remote debugging
 RUN ln -s /usr/bin/lua5.3 /usr/local/bin/lua ; ln -s /usr/bin/luac5.3 /usr/local/bin/luac
