@@ -1,13 +1,23 @@
 FROM ubuntu:latest
 
 # Install all required packages
-RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cmake sqlite3 libsqlite3-dev \
-                       libpq-dev postgresql postgresql-server-dev-all   \
-                       uuid-dev openssl1.0 libssl1.0-dev build-essential \
-                       autoconf automake libtool curl make unzip wget \
-                       openssh-server nano rsync gdb lua5.3 bsdmainutils \
-                       libzmq3-dev git
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y gnupg2
+
+RUN DEBIAN_FRONTEND=noninteractive . /etc/os-release && \
+     echo "deb http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu $UBUNTU_CODENAME main" > /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-focal.list && \
+     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1E9377A2BA9EF27F && \
+     apt-get update
+
+RUN DEBIAN_FRONTEND=noninteractive \
+     apt-get install -y cmake sqlite3 libsqlite3-dev libpq-dev postgresql postgresql-server-dev-all   \
+     uuid-dev openssl libssl-dev dpkg-dev libc6-dev make autoconf automake libtool curl make unzip wget \
+     openssh-server nano rsync gdb lua5.3 bsdmainutils libzmq3-dev git && \
+     apt-get purge -y gcc-9 g++-9 && \
+     apt-get autoremove -y && \
+     apt-get install -y gcc-11 g++-11 gcc-11-plugin-dev && \
+     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 && \
+     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10
+
 
 # Build secp256k1 and install in image
 RUN git clone https://github.com/bitcoin-core/secp256k1.git /tmp/secp256k1 && \
