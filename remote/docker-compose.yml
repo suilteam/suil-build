@@ -33,7 +33,7 @@ services:
         networks:
             - build-net
         volumes:
-            - ${RUNTIME_DIR}:/suil
+            - ${RUNTIME_DIR}/build:/tmp/build
 
 networks:
     build-net:

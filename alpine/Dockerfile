@@ -1,5 +1,8 @@
-FROM alpine:edge
-LABEL author="Carter Mbotho"
+FROM n0madic/alpine-gcc:7.4.0
+MAINTAINER "Carter Mbotho"
+
+# Use alpine edge
+RUN sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories
 
 RUN apk upgrade --available
 
@@ -8,8 +11,10 @@ RUN apk add --no-cache \
             curl git openssh bash sqlite sqlite-dev \
             openssl libressl-dev postgresql-dev \
             bsd-compat-headers util-linux-dev zeromq-dev \
-            docker autoconf automake libtool curl make unzip wget \
-            gcc g++ cmake
+            docker autoconf automake libtool curl make unzip wget
+
+# Install flynn binary    
+RUN L=/usr/local/bin/flynn && curl -sSL -A "`uname -sp`" https://dl.flynn.io/cli | zcat >$L && chmod +x $L
 
 # Build secp256k1 and install in image
 RUN git clone https://github.com/bitcoin-core/secp256k1.git /tmp/secp256k1 && \
