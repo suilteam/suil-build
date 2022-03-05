@@ -11,7 +11,7 @@ RUN DEBIAN_FRONTEND=noninteractive . /etc/os-release && \
 RUN DEBIAN_FRONTEND=noninteractive \
      apt-get install -y cmake sqlite3 libsqlite3-dev libpq-dev postgresql postgresql-server-dev-all   \
      uuid-dev openssl libssl-dev dpkg-dev libc6-dev make autoconf automake libtool curl make unzip wget \
-     openssh-server nano rsync gdb lua5.3 bsdmainutils libzmq3-dev git && \
+     openssh-server nano rsync gdb bsdmainutils libzmq3-dev git flex bison && \
      apt-get purge -y gcc-9 g++-9 && \
      apt-get autoremove -y && \
      apt-get install -y gcc-11 g++-11 gcc-11-plugin-dev && \
@@ -30,3 +30,11 @@ RUN export CXXFLAGS=-fPIC && mkdir -p /tmp/protoc && cd /tmp/protoc && \
     unzip protobuf-all-3.7.0.zip && cd protobuf-3.7.0 && \
     ./autogen.sh && ./configure --enable-shared=no --enable-static=yes --prefix=/usr/local/ && \
     make -j5 && make install && cd && rm -rf /tmp/protoc
+
+# Build lua and install library
+RUN export CXXFLAGS=-fPIC && cd /tmp && \
+    curl -R -O http://www.lua.org/ftp/lua-5.4.3.tar.gz &&   \
+    tar zxf lua-5.4.3.tar.gz && \
+    cd lua-5.4.3 && \
+    make && make install && \
+    cd /tmp && rm -rf lua-*

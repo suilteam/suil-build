@@ -26,7 +26,7 @@ services:
             - build-net
 
     remote-dbg:
-        image: 'suilteam/mercury-remote:ubuntu'
+        image: 'suilteam/remote:ubuntu'
         container_name: 'remote-dbg'
         ports:
             - '2022:22'
